@@ -1,7 +1,10 @@
 package com.bobo.eureka.controller;
 
+import com.bobo.eureka.service.Product;
+import com.bobo.eureka.service.Productservice;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -30,6 +33,9 @@ public class HelloWorldController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private Productservice productservice;
+
     @RequestMapping("/")
     public String helloworld(){
         return "hello world";
@@ -56,8 +62,14 @@ public class HelloWorldController {
     }
 
     @GetMapping("/loadBalanceProductInfo/{id}")
+    @HystrixCommand(fallbackMethod = "testError")
     public Object loadBalanceProductInfo(@PathVariable("id")String id){
-        Object forObject = restTemplate.getForObject("http://eureka-client2/product/" + id, Object.class);
-        return forObject;
+//        Object forObject = restTemplate.getForObject("http://eureka-client2/product/" + id, Object.class);
+        Product product = productservice.getProduct(id);
+        return product;
+    }
+
+    public String testError(String id){
+        return "histrix error is fallback";
     }
 }

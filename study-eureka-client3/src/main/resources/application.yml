@@ -9,3 +9,11 @@ eureka:
 spring:
   application:
     name: eureka-client2
+  zipkin:
+    base-url: http://localhost:8085
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

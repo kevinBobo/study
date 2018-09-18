@@ -1,5 +1,6 @@
 package eureka.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import eureka.domain.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import java.util.Date;
 public class ProductController {
 
     @GetMapping("/product/{id}")
+    @HystrixCommand
     public Product getProduct(@PathVariable("id")String id){
         Product product = new Product();
         product.setId(id);

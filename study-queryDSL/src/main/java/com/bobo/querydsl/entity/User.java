@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author bobo
@@ -27,6 +28,8 @@ public class User {
     private int age;
 
     private int gender;
+
+    private Date created;
 }
 
 

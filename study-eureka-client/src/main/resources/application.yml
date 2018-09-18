@@ -9,3 +9,15 @@ eureka:
 spring:
   application:
     name: eureka-client
+  zipkin:
+    base-url: http://localhost:8085
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+turbine:
+  app-config: eureka-client,eureka-client2
+  cluster-name-expression: new String("default")

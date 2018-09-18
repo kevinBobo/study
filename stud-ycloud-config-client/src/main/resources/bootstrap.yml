@@ -1,19 +1,20 @@
-server:
-  port: 8083
-
 spring:
   cloud:
     config:
-      server:
-        git:
-          uri: https://github.com/kevinBobo/springcloudconfig
+      discovery:
+        service-id: config-server
+        enabled: true
+
   application:
-    name: config-server
+    name: springcloudconfig
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
     password: guest
+
+server:
+  port: 8084
 
 eureka:
   client:

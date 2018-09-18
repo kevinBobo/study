@@ -1,0 +1,35 @@
+server:
+  port: 8087
+#rabbit
+#spring:
+#  cloud:
+#    stream:
+#      bindings:
+#        input:
+#          destination: springcloudstream
+#          binder: rabbit1
+#      binders:
+#        rabbit1:
+#          type: rabbit
+#          environment:
+#            spring:
+#              rabbitmq:
+#                host: localhost
+#                port: 5672
+#                username: guest
+#                password: guest
+
+#kafka
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: springcloudstream
+      kafka:
+        binder:
+          brokers: localhost:9092
+          zk-nodes: localhost:2181
+          auto-add-partitions: true
+          auto-create-topics: true
+          min-partition-count: 1

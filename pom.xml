@@ -16,6 +16,10 @@
         <module>study-eureka-client2</module>
         <module>study-eureka-client3</module>
         <module>study-cloud-config-server</module>
+        <module>stud-ycloud-config-client</module>
+        <module>study-cloud-sleuth</module>
+        <module>study-cloud-stream</module>
+        <module>spring-cloud-stream-input</module>
     </modules>
 
     <dependencies>
@@ -24,6 +28,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.3.RELEASE</version>
+    </parent>
 
     <dependencyManagement>
         <dependencies>
@@ -58,6 +68,8 @@
             </plugin>
         </plugins>
     </build>
+
+
 
 
 </project>

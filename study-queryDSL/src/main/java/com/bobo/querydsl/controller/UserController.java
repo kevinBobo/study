@@ -1,11 +1,13 @@
 package com.bobo.querydsl.controller;
 
+import com.bobo.querydsl.dao.UserJPA;
 import com.bobo.querydsl.dto.UserDTO;
 import com.bobo.querydsl.entity.QAccount;
 import com.bobo.querydsl.entity.QUser;
 import com.bobo.querydsl.entity.User;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,12 +26,16 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("user")
+@Slf4j
 public class UserController {
 
     @Autowired
     private EntityManager entityManager;
 
     private JPAQueryFactory queryFactory;
+
+    @Autowired
+    private UserJPA userJPA;
 
     @PostConstruct
     public void initFactory(){
@@ -59,5 +67,16 @@ public class UserController {
                 .from(qUser,qAccount)
                 .where(qUser.id.eq(qAccount.userId))
                 .fetch();
+    }
+
+    @RequestMapping("/addUser")
+    public void addUser(){
+        User user = new User();
+        user.setUsername("asdfasd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        log.info(date.getTime()+"-----------"+simpleDateFormat.format(date));
+        user.setCreated(date);
+        userJPA.save(user);
     }
 }
